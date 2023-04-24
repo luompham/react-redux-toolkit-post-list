@@ -9,7 +9,8 @@ import { postUpdated } from './postsSlice';
 export const EditPostForm = ({ match }) => {
     const { postId } = match.params;
 
-    const post = useSelector(state => state.posts.find(post => post.id === postId));
+    const post = useSelector(state =>
+        state.posts.find(post => post.id === Number(postId)));
 
     const [title, setTitle] = useState(post.title);
     const [content, setContent] = useState(post.content);
@@ -20,7 +21,7 @@ export const EditPostForm = ({ match }) => {
     const onSavePostClicked = () => {
         if (title && content) {
             dispatch(postUpdated({
-                id: postId,
+                id: Number(postId),
                 title,
                 content
             }));
@@ -49,7 +50,7 @@ export const EditPostForm = ({ match }) => {
                     cols="30"
                     rows="10"
                 ></textarea>
-                <button onClick={onSavePostClicked}>Save Post </button>
+                <button type='button' onClick={onSavePostClicked}>Save Post </button>
             </form>
         </section>
     );
