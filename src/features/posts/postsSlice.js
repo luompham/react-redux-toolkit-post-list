@@ -8,13 +8,27 @@ const initialState = [
         id: 1,
         title: 'Fist Post',
         content: 'Hello!',
-        date: sub(new Date(), { minutes: 10 }).toISOString()
+        date: sub(new Date(), { minutes: 10 }).toISOString(),
+        reactions: {
+            thumbsUp: 0,
+            hooray: 0,
+            heart: 0,
+            rocket: 0,
+            eyes: 0
+        }
     },
     {
         id: 2,
         title: 'Second Post',
         content: 'More text',
-        date: sub(new Date(), { minutes: 5 }).toISOString()
+        date: sub(new Date(), { minutes: 5 }).toISOString(),
+        reactions: {
+            thumbsUp: 0,
+            hooray: 0,
+            heart: 0,
+            rocket: 0,
+            eyes: 0
+        }
     },
 ];
 
@@ -35,7 +49,14 @@ const postSlice = createSlice(
                                 date: new Date().toISOString(),
                                 title,
                                 content,
-                                user: userId
+                                user: userId,
+                                reactions: {
+                                    thumbsUp: 0,
+                                    hooray: 0,
+                                    heart: 0,
+                                    rocket: 0,
+                                    eyes: 0
+                                }
                             }
                         }
                     )
@@ -51,6 +72,14 @@ const postSlice = createSlice(
                     existingPost.title = title;
                     existingPost.content = content;
                 }
+            },
+
+            reactionAdded(state, action) {
+                const { postId, reaction } = action.payload;
+                const existingPost = state.find(post => post.id === postId);
+                if (existingPost) {
+                    existingPost.reactions[reaction]++;
+                };
             }
         },
 
@@ -59,6 +88,12 @@ const postSlice = createSlice(
 
 console.log(postSlice)
 
-export const { postAdded, postUpdated } = postSlice.actions;
+export const { postAdded, postUpdated, reactionAdded } = postSlice.actions;
 
 export default postSlice.reducer;
+
+export const selectAllPosts = state => state.posts;
+
+export const selectPostById = (state, postId) =>
+    state.posts.find(post => post.id === Number(postId));
+
