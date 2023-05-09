@@ -8,6 +8,7 @@ import { ReactionButton } from './ReactionButton';
 import { selectAllPosts, fetchPosts } from './postsSlice';
 import { Spinner } from '../../components/Spinner';
 
+
 const PostExpert = ({ post }) => {
     return (
         <article className='post-excerpt' >
@@ -21,6 +22,7 @@ const PostExpert = ({ post }) => {
             <ReactionButton post={post} />
 
             <Link to={`/posts/${post.id}`} className="button muted-button">View Post</Link>
+
         </article>
     )
 }
