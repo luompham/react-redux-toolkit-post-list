@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectAllUsers } from './usersSlice'
-
+import { Link } from 'react-router-dom'
 
 
 export const UserList = () => {
@@ -11,8 +11,8 @@ export const UserList = () => {
         return (
             <li key={user.id}>
                 <Link to={`/users/${user.id}`}>{user.name}</Link>
-            </li>  
-        )   
+            </li>
+        );
     })
 
     return (
@@ -21,6 +21,7 @@ export const UserList = () => {
             <ul>
                 {renderedUsers}
             </ul>
+
         </section>
     )
 };
